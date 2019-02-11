@@ -1,22 +1,22 @@
 package com.example.gerardodwyer.tabletopcompanion.model;
 
-public class ItemDisplay {
+public class Item {
 
     private String Id;
     private String Item;
     private String LootedFrom;
     private String Lore;
     private String Description;
-    private Boolean Uniqe;
+    private String Unique;
     private String Type;
 
-    public ItemDisplay(String id, String item, String lootedFrom, String lore, String description, Boolean uniqe, String type) {
+    public Item(String id, String item, String lootedFrom, String lore, String description, String unique, String type) {
         Id = id;
         Item = item;
         LootedFrom = lootedFrom;
         Lore = lore;
         Description = description;
-        Uniqe = uniqe;
+        Unique = unique;
         Type = type;
     }
 
@@ -60,12 +60,12 @@ public class ItemDisplay {
         Description = description;
     }
 
-    public Boolean getUniqe() {
-        return Uniqe;
+    public String getUnique() {
+        return Unique;
     }
 
-    public void setUniqe(Boolean uniqe) {
-        Uniqe = uniqe;
+    public void setUnique(String unique) {
+        Unique = unique;
     }
 
     public String getType() {

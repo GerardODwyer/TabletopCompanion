@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "612761605635",
+    "firebase_url": "https://tabletop-companion-7fc88.firebaseio.com",
+    "project_id": "tabletop-companion-7fc88",
+    "storage_bucket": "tabletop-companion-7fc88.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:612761605635:android:b60ec61ed5b972fe",
+        "android_client_info": {
+          "package_name": "com.example.gerardodwyer.tabletopcompanion"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "612761605635-diqsp5eqg7eae8lqf0cfp6m6fenout3d.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.gerardodwyer.tabletopcompanion",
+            "certificate_hash": "62de777f1cb4d272fd59b6ffe84b81319a469681"
+          }
+        },
+        {
+          "client_id": "612761605635-72tmvsikocl8odbkbhgfppfuskmmft1k.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCop-U6Ei8mOGqvVW9GQAi8JmOXThxSSCo"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "612761605635-72tmvsikocl8odbkbhgfppfuskmmft1k.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
