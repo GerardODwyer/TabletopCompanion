@@ -10,6 +10,10 @@ public class Item {
     private String Unique;
     private String Type;
 
+    public Item(){
+
+    }
+
     public Item(String id, String item, String lootedFrom, String lore, String description, String unique, String type) {
         Id = id;
         Item = item;
