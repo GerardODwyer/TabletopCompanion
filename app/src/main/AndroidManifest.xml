@@ -17,7 +17,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".ItemListActivity" />
-        <activity android:name=".InfoViewActivity"></activity>
+        <activity android:name=".InfoViewActivity" />
+        <activity android:name=".PlayerStashActivity"></activity>
     </application>
 
 </manifest>

@@ -1,6 +1,7 @@
 package com.example.gerardodwyer.tabletopcompanion;
 
 import android.content.DialogInterface;
+import android.provider.MediaStore;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -13,6 +14,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.RadioButton;
 import android.widget.Toast;
 
 import com.example.gerardodwyer.tabletopcompanion.model.Item;
@@ -35,14 +37,19 @@ public class ItemListActivity extends AppCompatActivity {
     private FirebaseDatabase firebaseDb;
     private DatabaseReference tabletopRef;
     private Button addItmBtn;
+    private int choice;
+    private String path;
+    private CharSequence[] values = {" Player 1 "," Player 2 ", " Stash "};
 
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_items);
-        firebaseDb = FirebaseDatabase.getInstance();
-        tabletopRef = firebaseDb.getReference();
-        Log.i("TABLE", tabletopRef.toString());
+        tabletopRef = FirebaseDatabase.getInstance().getReference("Archive") ;
+
+
+
+
 
         addItmBtn = findViewById(R.id.addItmBtn);
         addItmBtn.setOnClickListener(new View.OnClickListener() {
@@ -60,15 +67,13 @@ public class ItemListActivity extends AppCompatActivity {
             @Override
             public void onClick(View view, int position) {
                 Item item = itemsList.get(position);
-                Toast.makeText(getApplicationContext(), item.getItem() + " is selected!", Toast.LENGTH_SHORT).show();
-                onClickItem(item);
+                onClickAddItem(item);
             }
 
             @Override
             public void onLongClick(View view, int position) {
                 Item item = itemsList.get(position);
-                Toast.makeText(getApplicationContext(), item.getId() + " is selected!", Toast.LENGTH_SHORT).show();
-                removeItem(item);
+                moveItemMenu(item);
             }
         }));
 
@@ -76,9 +81,11 @@ public class ItemListActivity extends AppCompatActivity {
 
     private List<Item> loadItemData() {
 // Attach a listener to read the data at our posts reference
-        tabletopRef.child("Archive/").addChildEventListener(new ChildEventListener() {
+        tabletopRef.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                //itemsList.clear();
+
                 Item post = dataSnapshot.getValue(Item.class);
                 itemsList.add(post);
 
@@ -88,10 +95,6 @@ public class ItemListActivity extends AppCompatActivity {
                 RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
                 mRecyclerView.setLayoutManager(mLayoutManager);
                 mRecyclerView.setItemAnimator(new DefaultItemAnimator());
-                mRecyclerView.setAdapter(myAdapter);
-
-                //decoration in recycleView
-                //mRecyclerView.addItemDecoration(new DividerItemDecoration(this, LinearLayoutManager.VERTICAL));
                 mRecyclerView.setAdapter(myAdapter);
 
             }
@@ -120,11 +123,11 @@ public class ItemListActivity extends AppCompatActivity {
         return itemsList;
     }
 
-    private void onClickItem(final Item item) {
+    private void onClickAddItem(final Item item) {
 
 
         tabletopRef = FirebaseDatabase.getInstance().getReference();
-        tabletopRef.child("Archive/").addListenerForSingleValueEvent(new ValueEventListener() {
+        tabletopRef.child("Archive").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if (item.getId() == null) {
@@ -159,6 +162,95 @@ public class ItemListActivity extends AppCompatActivity {
 
         Toast.makeText(this, "Item Removed", Toast.LENGTH_SHORT).show();
     }
+
+
+
+
+
+
+    private void moveItem(Item item) {
+
+        if(choice == 0){
+            String path = "Player1/";
+            this.path = path;
+        }
+        else
+        if(choice == 1){
+            String path = "Player2/";
+            this.path = path;
+        }
+        else
+        if(choice == 2){
+            String path = "Stash/";
+            this.path = path;
+        }
+        else
+        {
+            Toast.makeText(ItemListActivity.this, "Invalid Input", Toast.LENGTH_LONG).show();
+        }
+
+        tabletopRef = FirebaseDatabase.getInstance().getReference( path + item.getId());
+        tabletopRef.setValue(item);
+
+        Toast.makeText(this, "Item Moved", Toast.LENGTH_SHORT).show();
+    }
+
+
+
+    private void moveItemMenu(final Item item) {
+        final AlertDialog.Builder builder = new AlertDialog.Builder(ItemListActivity.this);
+
+        builder.setTitle("Move Item");
+
+        builder.setSingleChoiceItems(values, -1, new DialogInterface.OnClickListener() {
+
+            public void onClick(DialogInterface dialog, int item) {
+
+                switch(item)
+                {
+                    case 0:
+                        choice = item;
+                        break;
+                    case 1:
+                        choice = item;
+                        break;
+                    case 2:
+                        choice = item;
+                        break;
+                }
+                builder.setMessage("Please Choose Item Location");
+            }
+        });
+
+
+        builder.setCancelable(true);
+        builder.setPositiveButton("Move Item", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                removeItem(item);
+                moveItem(item);
+
+            }
+        });
+
+
+        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+
+                dialogInterface.cancel();
+                finish();
+            }
+        });
+
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
+
+
+    }
+
+
+
 
 
     private void createItem() {
