@@ -76,4 +76,13 @@
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/dragon" />
 
+    <ImageButton
+        android:id="@+id/disclaimer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/imageButton5"
+        android:layout_alignTop="@+id/allItems"
+        android:layout_marginTop="39dp"
+        app:srcCompat="@drawable/book" />
+
 </RelativeLayout>

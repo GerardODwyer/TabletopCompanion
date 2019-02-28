@@ -18,7 +18,8 @@
         </activity>
         <activity android:name=".ItemListActivity" />
         <activity android:name=".InfoViewActivity" />
-        <activity android:name=".PlayerStashActivity"></activity>
+        <activity android:name=".PlayerStashActivity" />
+        <activity android:name=".DisclaimerActivity"></activity>
     </application>
 
 </manifest>

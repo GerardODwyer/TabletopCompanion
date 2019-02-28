@@ -15,6 +15,7 @@ public class MainActivity extends AppCompatActivity {
     private static final String TAG = "TAG";
     private ImageButton btn5;
     private ImageButton newBtn;
+    private ImageButton disclaimer;
     private int choice;
     private String path;
     private CharSequence[] values = {" Player 1 "," Archive ", " Stash "};
@@ -24,6 +25,15 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        disclaimer =(ImageButton) findViewById(R.id.disclaimer);
+        disclaimer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                openDisclaimer();
+            }
+        });
+
 
         newBtn = (ImageButton) findViewById(R.id.allItems);
         newBtn.setOnClickListener(new View.OnClickListener() {
@@ -45,6 +55,10 @@ public class MainActivity extends AppCompatActivity {
 
     public void openItems() {
         Intent intent = new Intent(this, ItemListActivity.class);
+        startActivity(intent);
+    }
+    public void openDisclaimer() {
+        Intent intent = new Intent(this, DisclaimerActivity.class);
         startActivity(intent);
     }
 
