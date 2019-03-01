@@ -39,7 +39,7 @@ public class ItemListActivity extends AppCompatActivity {
     private Button addItmBtn;
     private int choice;
     private String path;
-    private CharSequence[] values = {" Player 1 "," Player 2 ", " Stash "};
+    private CharSequence[] values = {" Player 1 "," Player 2 ", " Player 3 ", " Player 4 "};
 
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,13 +67,13 @@ public class ItemListActivity extends AppCompatActivity {
             @Override
             public void onClick(View view, int position) {
                 Item item = itemsList.get(position);
-                onClickAddItem(item);
+                moveItemMenu(item);
             }
 
             @Override
             public void onLongClick(View view, int position) {
                 Item item = itemsList.get(position);
-                moveItemMenu(item);
+                removeItem(item);
             }
         }));
 
@@ -181,7 +181,12 @@ public class ItemListActivity extends AppCompatActivity {
         }
         else
         if(choice == 2){
-            String path = "Stash/";
+            String path = "Player3/";
+            this.path = path;
+        }
+        else
+        if(choice == 3){
+            String path = "Player4/";
             this.path = path;
         }
         else
@@ -215,6 +220,9 @@ public class ItemListActivity extends AppCompatActivity {
                         choice = item;
                         break;
                     case 2:
+                        choice = item;
+                        break;
+                    case 3:
                         choice = item;
                         break;
                 }
@@ -288,7 +296,7 @@ public class ItemListActivity extends AppCompatActivity {
         layout.addView(text_unique);
 
         final EditText text_type = new EditText(this);
-        text_type.setHint("Type)");
+        text_type.setHint("Type");
         layout.addView(text_type);
 
 
@@ -308,12 +316,18 @@ public class ItemListActivity extends AppCompatActivity {
                 String Unique = text_unique.getText().toString();
                 String Type = text_type.getText().toString();
 
-                //Item item = new Item(id, itemName, lootedFrom, lore, description, type);
 
-                Item item = new Item(Id, Item, LootedFrom, Lore, Description, Unique, Type);
+                if (Id.isEmpty() || Item.isEmpty() || LootedFrom.isEmpty() || Lore.isEmpty()|| Description.isEmpty() || Unique.isEmpty() || Type.isEmpty())
+                {
+                    Toast.makeText(ItemListActivity.this, "Please Fill all Fields", Toast.LENGTH_LONG).show();
+                }
+                else {
+                    Item item = new Item(Id, Item, LootedFrom, Lore, Description, Unique, Type);
 
-                tabletopRef = FirebaseDatabase.getInstance().getReference("Archive/" + Id);
-                tabletopRef.setValue(item);
+
+                    tabletopRef = FirebaseDatabase.getInstance().getReference("Archive/" + Id);
+                    tabletopRef.setValue(item);
+                }
             }
         });
 

@@ -18,7 +18,7 @@ public class MainActivity extends AppCompatActivity {
     private ImageButton disclaimer;
     private int choice;
     private String path;
-    private CharSequence[] values = {" Player 1 "," Archive ", " Stash "};
+    private CharSequence[] values = {" Player 1 "," Player 2 ", " Player 3 ", " Player 4"};
 
 
     @Override
@@ -82,6 +82,9 @@ public class MainActivity extends AppCompatActivity {
                     case 2:
                         choice = item;
                         break;
+                    case 3:
+                        choice = item;
+                        break;
                 }
                 builder.setMessage("Please Choose Inv Path");
             }
@@ -121,14 +124,20 @@ public class MainActivity extends AppCompatActivity {
         }
         else
         if(choice == 1){
-            String path = "Archive/";
+            String path = "Player2/";
             this.path = path;
         }
         else
         if(choice == 2){
-            String path = "Stash/";
+            String path = "Player3/";
             this.path = path;
         }
+        else
+        if(choice == 3){
+            String path = "Player4/";
+            this.path = path;
+        }
+
         else
         {
             Toast.makeText(MainActivity.this, "Invalid Input", Toast.LENGTH_LONG).show();

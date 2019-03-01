@@ -13,10 +13,11 @@
         android:id="@+id/recycler_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/background_blue"
         android:scrollbars="vertical" />
 
     <Button
-        android:id="@+id/addItmBtn"
+        android:id="@+id/addItmBtn2"
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:layout_alignParentRight="true"
