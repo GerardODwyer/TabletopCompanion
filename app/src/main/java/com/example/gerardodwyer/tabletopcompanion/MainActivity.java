@@ -16,6 +16,7 @@ public class MainActivity extends AppCompatActivity {
     private ImageButton btn5;
     private ImageButton newBtn;
     private ImageButton disclaimer;
+    private ImageButton npcBtn;
     private int choice;
     private String path;
     private CharSequence[] values = {" Player 1 "," Player 2 ", " Player 3 ", " Player 4"};
@@ -49,6 +50,15 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 stashChoiceMenu();
+            }
+        });
+
+
+        npcBtn=findViewById(R.id.npcList);
+        npcBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                npcActivity();
             }
         });
     }
@@ -148,5 +158,10 @@ public class MainActivity extends AppCompatActivity {
         i.putExtra("path", path);
         this.startActivity(i);
 
+    }
+
+    public void npcActivity() {
+        Intent intent = new Intent(this, NPCListActivity.class);
+        startActivity(intent);
     }
 }

@@ -97,6 +97,7 @@ public class ItemListActivity extends AppCompatActivity {
                 mRecyclerView.setItemAnimator(new DefaultItemAnimator());
                 mRecyclerView.setAdapter(myAdapter);
 
+                myAdapter.notifyDataSetChanged();
             }
 
 
@@ -155,12 +156,39 @@ public class ItemListActivity extends AppCompatActivity {
 
     }
 
-    private void removeItem(Item item) {
+    private void removeItem(final Item item) {
 
-        tabletopRef = FirebaseDatabase.getInstance().getReference("Archive/" +item.getId());
-        tabletopRef.removeValue();
+        final AlertDialog.Builder builder = new AlertDialog.Builder(ItemListActivity.this);
 
-        Toast.makeText(this, "Item Removed", Toast.LENGTH_SHORT).show();
+        builder.setTitle("Delete Item?");
+
+        builder.setCancelable(true);
+        builder.setPositiveButton("Delete Item", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                tabletopRef = FirebaseDatabase.getInstance().getReference("Archive/" +item.getId());
+                tabletopRef.removeValue();
+
+                Toast.makeText(ItemListActivity.this, "Item Removed", Toast.LENGTH_SHORT).show();
+
+            }
+        });
+
+
+        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+
+                dialogInterface.cancel();
+                finish();
+            }
+        });
+
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
+
+
+
     }
 
 
