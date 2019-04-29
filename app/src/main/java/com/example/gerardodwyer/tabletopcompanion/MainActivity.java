@@ -17,6 +17,8 @@ public class MainActivity extends AppCompatActivity {
     private ImageButton newBtn;
     private ImageButton disclaimer;
     private ImageButton npcBtn;
+    private ImageButton enemyBtn;
+    private ImageButton questBtn;
     private int choice;
     private String path;
     private CharSequence[] values = {" Player 1 "," Player 2 ", " Player 3 ", " Player 4"};
@@ -59,6 +61,22 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 npcActivity();
+            }
+        });
+
+        enemyBtn=findViewById(R.id.imageButton6);
+        enemyBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                EnemyActivity();
+            }
+        });
+
+        questBtn = findViewById(R.id.ImageButton7);
+        questBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                QuestActivity();
             }
         });
     }
@@ -162,6 +180,16 @@ public class MainActivity extends AppCompatActivity {
 
     public void npcActivity() {
         Intent intent = new Intent(this, NPCListActivity.class);
+        startActivity(intent);
+    }
+
+    public void EnemyActivity() {
+        Intent intent = new Intent(this, EnemyListActivity.class);
+        startActivity(intent);
+    }
+
+    public void QuestActivity() {
+        Intent intent = new Intent(this, QuestActivity.class);
         startActivity(intent);
     }
 }

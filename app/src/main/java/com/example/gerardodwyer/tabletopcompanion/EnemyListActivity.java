@@ -13,6 +13,7 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import com.example.gerardodwyer.tabletopcompanion.model.Enemy;
 import com.example.gerardodwyer.tabletopcompanion.model.Item;
 import com.example.gerardodwyer.tabletopcompanion.model.NPC;
 import com.google.firebase.database.ChildEventListener;
@@ -25,43 +26,43 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class NPCListActivity extends AppCompatActivity {
+public class EnemyListActivity extends AppCompatActivity {
 
-    private List<NPC> npcList = new ArrayList<>();
-    private NPC npc;
+    private List<Enemy> enemyList = new ArrayList<>();
+    private Enemy enemy;
     private RecyclerView mRecyclerView;
-    private NPCAdapter npcAdapter;
+    private EnemyAdapter enemyAdapter;
     private FirebaseDatabase firebaseDatabase;
     private DatabaseReference databaseRef;
-    private Button AddNPCBtn;
+    private Button AddEnemyBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_npclist);
+        setContentView(R.layout.activity_enemy_list);
 
-        databaseRef = FirebaseDatabase.getInstance().getReference("NPCs");
+        databaseRef = FirebaseDatabase.getInstance().getReference("Enemies/");
 
-        AddNPCBtn = findViewById(R.id.addNPCBtn);
-        AddNPCBtn.setOnClickListener(new View.OnClickListener() {
+        AddEnemyBtn = findViewById(R.id.addEnemyBtn);
+        AddEnemyBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                createNPC();
+                createEnemy();
             }
         });
 
-        mRecyclerView = findViewById(R.id.npcRecyclerView);
+        mRecyclerView = findViewById(R.id.EnemyRecyclerView);
 
         mRecyclerView.addOnItemTouchListener(new RecyclerTouchListener(getApplicationContext(), mRecyclerView, new RecyclerTouchListener.ClickListener() {
             @Override
             public void onClick(View view, int position) {
-                npc = npcList.get(position);
+                enemy = enemyList.get(position);
 
             }
 
             @Override
             public void onLongClick(View view, int position) {
-                npc = npcList.get(position);
+                enemy = enemyList.get(position);
 
             }
         }));
@@ -69,20 +70,20 @@ public class NPCListActivity extends AppCompatActivity {
         loadData();
     }
 
-    private List<NPC> loadData() {
+    private List<Enemy> loadData() {
         databaseRef.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                NPC npc = dataSnapshot.getValue(NPC.class);
-                npcList.add(npc);
+                Enemy enemy = dataSnapshot.getValue(Enemy.class);
+                enemyList.add(enemy);
 
 
 //                mRecyclerView.setHasFixedSize(true); //remove if broken recyclerView
-                npcAdapter = new NPCAdapter(npcList);
+                enemyAdapter = new EnemyAdapter(enemyList);
                 RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
                 mRecyclerView.setLayoutManager(mLayoutManager);
                 mRecyclerView.setItemAnimator(new DefaultItemAnimator());
-                mRecyclerView.setAdapter(npcAdapter);
+                mRecyclerView.setAdapter(enemyAdapter);
             }
 
             @Override
@@ -105,14 +106,14 @@ public class NPCListActivity extends AppCompatActivity {
 
             }
         });
-        return npcList;
+        return enemyList;
     }
 
 
-    private void createNPC() {
+    private void createEnemy() {
 
-        final AlertDialog.Builder builder = new AlertDialog.Builder(NPCListActivity.this);
-        builder.setTitle("Create New NPC");
+        final AlertDialog.Builder builder = new AlertDialog.Builder(EnemyListActivity.this);
+        builder.setTitle("Create New Enemy");
 
 
         LinearLayout layout = new LinearLayout(this);
@@ -148,7 +149,7 @@ public class NPCListActivity extends AppCompatActivity {
 
 
         builder.setCancelable(true);
-        builder.setPositiveButton("Add to NPC List", new DialogInterface.OnClickListener() {
+        builder.setPositiveButton("Add to Enemy List", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
 
@@ -162,14 +163,14 @@ public class NPCListActivity extends AppCompatActivity {
 
                 if (name.isEmpty() || weapon.isEmpty() || power.isEmpty() || allegiance.isEmpty()|| appearance.isEmpty() || backstory.isEmpty())
                 {
-                    Toast.makeText(NPCListActivity.this, "Please Fill all Fields", Toast.LENGTH_LONG).show();
+                    Toast.makeText(EnemyListActivity.this, "Please Fill all Fields", Toast.LENGTH_LONG).show();
                 }
                 else {
-                    NPC npc = new NPC(name, weapon, power, allegiance, appearance, backstory);
+                    Enemy enemy = new Enemy(name, weapon, power, allegiance, appearance, backstory);
 
 
-                    databaseRef = FirebaseDatabase.getInstance().getReference("NPCs/" + npc.getName());
-                    databaseRef.setValue(npc);
+                    databaseRef = FirebaseDatabase.getInstance().getReference("Enemies/" + enemy.getName());
+                    databaseRef.setValue(enemy);
                 }
             }
         });

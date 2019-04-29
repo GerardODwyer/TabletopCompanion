@@ -4,22 +4,24 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.gerardodwyer.tabletopcompanion.NPCListActivity"
-    android:background="@color/background_blue">
+    android:background="@color/background_blue"
+    tools:context="com.example.gerardodwyer.tabletopcompanion.EnemyListActivity">
 
     <android.support.v7.widget.RecyclerView
-        android:id="@+id/npcRecyclerView"
+        android:id="@+id/EnemyRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"></android.support.v7.widget.RecyclerView>
 
 
     <Button
-        android:id="@+id/addNPCBtn"
+        android:id="@+id/addEnemyBtn"
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:layout_alignParentEnd="true"
+        android:layout_marginTop="16dp"
         android:background="@android:drawable/ic_menu_add"
-        tools:layout_editor_absoluteX="334dp"
-        tools:layout_editor_absoluteY="16dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </android.support.constraint.ConstraintLayout>
+

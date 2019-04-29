@@ -20,7 +20,9 @@
         <activity android:name=".InfoViewActivity" />
         <activity android:name=".PlayerStashActivity" />
         <activity android:name=".DisclaimerActivity" />
-        <activity android:name=".NPCListActivity"></activity>
+        <activity android:name=".NPCListActivity" />
+        <activity android:name=".EnemyListActivity" />
+        <activity android:name=".QuestActivity"></activity>
     </application>
 
 </manifest>

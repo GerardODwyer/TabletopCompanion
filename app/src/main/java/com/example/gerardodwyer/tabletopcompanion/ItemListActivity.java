@@ -192,10 +192,6 @@ public class ItemListActivity extends AppCompatActivity {
     }
 
 
-
-
-
-
     private void moveItem(Item item) {
 
         if(choice == 0){
@@ -263,8 +259,9 @@ public class ItemListActivity extends AppCompatActivity {
         builder.setPositiveButton("Move Item", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-                removeItem(item);
                 moveItem(item);
+                tabletopRef = FirebaseDatabase.getInstance().getReference("Archive/" +item.getId());
+                tabletopRef.removeValue();
 
             }
         });
